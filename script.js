@@ -9,26 +9,45 @@ function computerPlay() {
 }
 //function that will return the choice (random) from the cpu
 
-// console.log(computerPlay()); // tells program to show us the result in the console but dont need it here, great for testing tho!
-
-// return playerSelection;
-    //cannot be at the top of code bc it tells the program to stop running
 
 function playRound(playerSelection, computerSelection) {
 
 
-    if (computerSelection === "rock" && playerSelection === "rock"){
-        return "rock and roll, its a tie!";
-    } else if (computerSelection === "rock" && playerSelection === "paper"){
-        return "You win, paper beats rock!";
-    } else if (computerSelection === "rock" && playerSelection === "scissors"){
-        return "You lose, rock beats scissors!";
-    } else {
-        return "We're not doneee!";
-    }
+    if (computerSelection === "rock"){
+        if (playerSelection.toLowerCase() === "rock"){
+            return "rock and roll, its a tie!";
+        } else if (playerSelection.toLowerCase() === "paper"){
+            return "You win, paper beats rock!";
+        } else if (playerSelection.toLowerCase() === "scissors"){
+            return "You lose, rock beats scissors!";
+        } else {
+            return "Please enter rock, paper, or scissors!";
+        }
 
-    
-}
+    } else if (computerSelection === "paper"){
+        if (playerSelection.toLowerCase() === "rock"){
+            return "You lose, paper beats rock!";
+        } else if (playerSelection.toLowerCase() === "paper"){
+            return "Paper on paper, its a tie!";
+        } else if (playerSelection.toLowerCase() === "scissors"){
+            return "You win, scissors cut paper!";
+        } else {
+            return "Please enter rock, paper, or scissors!";
+        }
+
+    } else if (computerSelection === "scissors"){
+        if (playerSelection.toLowerCase() === "rock"){
+            return "You win, rock beats scissors!";
+        } else if (playerSelection.toLowerCase() === "paper"){
+            return "You lose, scissors cut paper!";
+        } else if (playerSelection.toLowerCase() === "scissors"){
+            return "Saved by the tie!";
+        } else {
+            return "Please enter rock, paper, or scissors!";
+        }
+
+    }
+    // testing if cpu chooses rock with child if statements (it works!)
 
 
 
