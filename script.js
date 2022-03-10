@@ -87,8 +87,5 @@ function game(){
 }
 // plays 5 rounds and returns the winner of each round, then the final score!
 
-// WE HAVE IT ASKING 5 TIMES BUT NOW WE NEED THE COMP TO GIVE 5 DIFFERENT ANSWERS
-// fixed by adding computerSelection to loop
-
 game();
 // plays Rock Paper Scissors!
