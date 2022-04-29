@@ -5,13 +5,18 @@ const scissorsButton = document.querySelector("#scissors");
 
 let choices = document.querySelectorAll("button");
 
+const compRock = document.querySelector("#compRock");
+const compPaper = document.querySelector("#compPaper");
+const compScissors = document.querySelector("#compScissors");
+
 const arr = ["Rock", "Paper", "Scissors"]; //cpu choices
 
 let playerScore = 0;
 let computerScore = 0;
 
-let resultsDiv = document.querySelector("#whoWon");
+let whoWonDiv = document.querySelector("#whoWon");
 //display results; may just create with html but ill see
+let resultsDiv = document.querySelector("#results");
 
 function computerPlay() {
   let compChoice = arr[Math.floor(Math.random() * arr.length)];
@@ -22,51 +27,72 @@ function computerPlay() {
 }
 //function that will return the choice (random) from the cpu in lowercase
 
-function playRound(playerSelection, computerSelection) {
-  // resultsDiv.innerHTML += "player: " + playerSelection + "<br>";
-  // resultsDiv.innerHTML += "opponent: " + computerSelection + "<br>";
 
-  if (playerSelection === computerSelection) {
-    // resultsDiv.innerHTML += "tied round!<br>";
-    return;
+function playRound(playerSelection, computerSelection) {
+  
+  while (resultsDiv.firstChild){
+    resultsDiv.removeChild(resultsDiv.firstChild);
+  } //removes choices from results div each round
+
+  if (playerSelection === "rock" && computerSelection === "rock") {
+
+    resultsDiv.appendChild(rockButton);
+    resultsDiv.appendChild(compRock);
+  } else if (playerSelection === "paper" && computerSelection === "paper "){
+
+    resultsDiv.appendChild(paperButton);
+    resultsDiv.appendChild(compPaper);
+  } else if (playerSelection === "scissors" && computerSelection === "scissors"){
+    resultsDiv.appendChild(scissorsButton);
+    resultsDiv.appendChild(compScissors);
   } else if (playerSelection === "rock") {
+    resultsDiv.appendChild(rockButton);
     if (computerSelection === "paper") {
-      // resultsDiv.innerHTML += "you lose this round! paper beats rock <br>";
+      resultsDiv.appendChild(compPaper);
       computerScore++;
       return;
     } else if (computerSelection === "scissors") {
-      // resultsDiv.innerHTML += "you win this round! rock beats scissors <br> ";
+      resultsDiv.appendChild(compScissors);
       playerScore++;
       return;
     }
   } else if (playerSelection === "paper") {
+    resultsDiv.appendChild(paperButton);
     if (computerSelection === "rock") {
-      // resultsDiv.innerHTML += "you win this round! paper beats rock <br>";
+      resultsDiv.appendChild(compRock);
       playerScore++;
       return;
     } else if (computerSelection === "scissors") {
-      // resultsDiv.innerHTML += "you lose this round! scissors beats paper <br>";
+      resultsDiv.appendChild(compScissors);
       computerScore++;
       return;
     }
   } else if (playerSelection === "scissors") {
+    resultsDiv.appendChild(scissorsButton);
     if (computerSelection === "rock") {
-      // resultsDiv.innerHTML += "you lose this round! rock beats scissors <br>";
+      resultsDiv.appendChild(compRock);
       computerScore++;
       return;
     } else if (computerSelection === "paper") {
-      // resultsDiv.innerHTML += "you win this round! scissors beats paper <br>";
+      resultsDiv.appendChild(compPaper);
       playerScore++;
       return;
     }
   }
 
-  // resultsDiv.innerHTML += "you: " + playerScore + "<br>";
-  // resultsDiv.innerHTML += "opponent: " + computerScore + "<br>";
-}
+  if (playerSelection === "rock"){
+    buttonsOG.appendChild(rockButton);
+  }
+
+
+} //playRound()
 
 let playerScoreTest = document.querySelector("#yourScore");
 let compScoreTest = document.querySelector("#compScore");
+
+let buttonsOG = document.querySelector("#tester");
+
+
 
 function game() {
   choices.forEach((choice) => {
@@ -75,21 +101,25 @@ function game() {
       let computerSelection = computerPlay();
       playRound(playerSelection, computerSelection);
 
+
       playerScoreTest.innerHTML = playerScore;
       compScoreTest.innerHTML = computerScore;
 
       gameOver();
     });
   });
+
+  
+
 }
 
 function gameOver() {
   if (playerScore === 5) {
-    resultsDiv.innerHTML = "YOU WON! *party emoji*<br>"; 
+    whoWonDiv.innerHTML = "YOU WON! *party emoji*<br>"; 
 
     const replay = document.createElement("button");
     replay.textContent = "play again?";
-    resultsDiv.appendChild(replay);
+    whoWonDiv.appendChild(replay);
 
     replay.addEventListener("click", () => {
       location.reload(); //reloads the window
@@ -99,11 +129,11 @@ function gameOver() {
       choice.disabled = true; //disables the click event when true
     });
   } else if (computerScore === 5) {
-    resultsDiv.innerHTML = "YOU LOSE! <br>";
+    whoWonDiv.innerHTML = "YOU LOSE! <br>";
 
     const replay = document.createElement("button");
     replay.textContent = "play again?";
-    resultsDiv.appendChild(replay);
+    whoWonDiv.appendChild(replay);
 
     replay.addEventListener("click", () => {
       location.reload();

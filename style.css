@@ -44,7 +44,9 @@ p {
 #paper {
   margin: 60px 0px 60px 0;
 }
-
+#compPaper {
+  margin: 60px 0 60px 0;
+}
 #scoreboard {
   position: absolute;
   width: 210px;
