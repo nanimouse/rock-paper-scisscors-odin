@@ -17,6 +17,8 @@ let computerScore = 0;
 let whoWonDiv = document.querySelector("#whoWon");
 //display results; may just create with html but ill see
 let resultsDiv = document.querySelector("#results");
+let resultsChild = document.querySelector(".resultsChild");
+let resultsChild1 = document.querySelector(".resultsChild1");
 
 function computerPlay() {
   let compChoice = arr[Math.floor(Math.random() * arr.length)];
@@ -27,6 +29,13 @@ function computerPlay() {
 }
 //function that will return the choice (random) from the cpu in lowercase
 
+let clonedRock = rockButton.cloneNode(true);
+let clonedPaper = paperButton.cloneNode(true);
+let clonedScissors = scissorsButton.cloneNode(true);
+let clonedRockComp = compRock.cloneNode(true);
+let clonedPaperComp = compPaper.cloneNode(true);
+let clonedScissorsComp = compScissors.cloneNode(true);
+
 
 function playRound(playerSelection, computerSelection) {
   
@@ -36,53 +45,55 @@ function playRound(playerSelection, computerSelection) {
 
   if (playerSelection === "rock" && computerSelection === "rock") {
 
-    resultsDiv.appendChild(rockButton);
-    resultsDiv.appendChild(compRock);
-  } else if (playerSelection === "paper" && computerSelection === "paper "){
+    
 
-    resultsDiv.appendChild(paperButton);
-    resultsDiv.appendChild(compPaper);
+    resultsDiv.appendChild(clonedRock);
+    resultsDiv.appendChild(clonedRockComp);
+  } else if (playerSelection === "paper" && computerSelection === "paper"){
+
+    resultsDiv.appendChild(clonedPaper);
+    resultsDiv.appendChild(clonedPaperComp);
+
   } else if (playerSelection === "scissors" && computerSelection === "scissors"){
-    resultsDiv.appendChild(scissorsButton);
-    resultsDiv.appendChild(compScissors);
+    resultsDiv.appendChild(clonedScissors);
+    resultsDiv.appendChild(clonedScissorsComp);
   } else if (playerSelection === "rock") {
-    resultsDiv.appendChild(rockButton);
+
+    resultsDiv.appendChild(clonedRock);
+    // resultsDiv.appendChild(rockButton);
     if (computerSelection === "paper") {
-      resultsDiv.appendChild(compPaper);
+      resultsDiv.appendChild(clonedPaperComp);
       computerScore++;
       return;
     } else if (computerSelection === "scissors") {
-      resultsDiv.appendChild(compScissors);
+      resultsDiv.appendChild(clonedScissorsComp);
       playerScore++;
       return;
     }
   } else if (playerSelection === "paper") {
-    resultsDiv.appendChild(paperButton);
+    resultsDiv.appendChild(clonedPaper);
     if (computerSelection === "rock") {
-      resultsDiv.appendChild(compRock);
+      resultsDiv.appendChild(clonedRockComp);
       playerScore++;
       return;
     } else if (computerSelection === "scissors") {
-      resultsDiv.appendChild(compScissors);
+      resultsDiv.appendChild(clonedScissorsComp);
       computerScore++;
       return;
     }
   } else if (playerSelection === "scissors") {
-    resultsDiv.appendChild(scissorsButton);
+    resultsDiv.appendChild(clonedScissors);
     if (computerSelection === "rock") {
-      resultsDiv.appendChild(compRock);
+      resultsDiv.appendChild(clonedRockComp);
       computerScore++;
       return;
     } else if (computerSelection === "paper") {
-      resultsDiv.appendChild(compPaper);
+      resultsDiv.appendChild(clonedPaperComp);
       playerScore++;
       return;
     }
   }
 
-  if (playerSelection === "rock"){
-    buttonsOG.appendChild(rockButton);
-  }
 
 
 } //playRound()
@@ -114,8 +125,14 @@ function game() {
 }
 
 function gameOver() {
+
   if (playerScore === 5) {
-    whoWonDiv.innerHTML = "YOU WON! *party emoji*<br>"; 
+
+    while (resultsDiv.firstChild){
+      resultsDiv.removeChild(resultsDiv.firstChild);
+    }
+
+    whoWonDiv.innerHTML = "YOU WON! " + String.fromCodePoint(0x1F389) + "<br>"; 
 
     const replay = document.createElement("button");
     replay.textContent = "play again?";
@@ -129,7 +146,12 @@ function gameOver() {
       choice.disabled = true; //disables the click event when true
     });
   } else if (computerScore === 5) {
-    whoWonDiv.innerHTML = "YOU LOSE! <br>";
+
+    while (resultsDiv.firstChild){
+      resultsDiv.removeChild(resultsDiv.firstChild);
+    }
+
+    whoWonDiv.innerHTML = "YOU LOSE! " + String.fromCodePoint(0x1F44E) + "<br>";
 
     const replay = document.createElement("button");
     replay.textContent = "play again?";
