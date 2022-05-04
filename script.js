@@ -1,124 +1,170 @@
-const arr = ["Rock", "Paper", "Scissors"]; //create an array that holds the cpu choices
+const rockButton = document.querySelector("#rock");
+const paperButton = document.querySelector("#paper");
+const scissorsButton = document.querySelector("#scissors");
+//html buttons aka player choice
+
+let choices = document.querySelectorAll("button");
+
+const compRock = document.querySelector("#compRock");
+const compPaper = document.querySelector("#compPaper");
+const compScissors = document.querySelector("#compScissors");
+
+const arr = ["Rock", "Paper", "Scissors"]; //cpu choices
 
 let playerScore = 0;
 let computerScore = 0;
-// score taking
 
-
+let whoWonDiv = document.querySelector("#whoWon");
+//display results; may just create with html but ill see
+let resultsDiv = document.querySelector("#results");
+let resultsChild = document.querySelector(".resultsChild");
+let resultsChild1 = document.querySelector(".resultsChild1");
 
 function computerPlay() {
-   let compChoice = arr[Math.floor( Math.random() * arr.length )]; 
-     // since .random gives a # b/t 0-1 [a decimal], we use .floor to give us a whole number (it rounds down), then we multiply by the array length so that we get a result b/t 0-length of array
-   let opponent = compChoice.toLowerCase();
-   return opponent;
-    //we assigned our randomization calculation to "opponent" so here we are instructing the program to return the random value, but we couldve also return compChoice for less code
+  let compChoice = arr[Math.floor(Math.random() * arr.length)];
+  // since .random gives a # b/t 0-1 [a decimal], we use .floor to give us a whole number (it rounds down), then we multiply by the array length so that we get a result b/t 0-length of array
+  let opponent = compChoice.toLowerCase();
+  return opponent;
+  //we assigned our randomization calculation to "opponent" so here we are instructing the program to return the random value, but we couldve also return compChoice for less code
 }
 //function that will return the choice (random) from the cpu in lowercase
 
-function oneRound(){
-
-    const playerSelection = prompt("Rock Paper Scissors says Shoot!"); //gets input value
-            const computerSelection = computerPlay(); //stores computer choice
-    console.log(playerSelection);
-         console.log(computerSelection);
-        console.log(playRound(playerSelection, computerSelection));
-
-}
+let clonedRock = rockButton.cloneNode(true);
+let clonedPaper = paperButton.cloneNode(true);
+let clonedScissors = scissorsButton.cloneNode(true);
+let clonedRockComp = compRock.cloneNode(true);
+let clonedPaperComp = compPaper.cloneNode(true);
+let clonedScissorsComp = compScissors.cloneNode(true);
 
 
 function playRound(playerSelection, computerSelection) {
+  
+  while (resultsDiv.firstChild){
+    resultsDiv.removeChild(resultsDiv.firstChild);
+  } //removes choices from results div each round
+
+  if (playerSelection === "rock" && computerSelection === "rock") {
 
     
 
-    if (computerSelection === "rock"){
-        if (playerSelection.toLowerCase() === "rock"){
-            return "rock and roll, its a tie!";
-        } else if (playerSelection.toLowerCase() === "paper"){
-            playerScore++;                                          //increments playerScore
-            return "You win, paper beats rock!";
-        } else if (playerSelection.toLowerCase() === "scissors"){
-            computerScore++;                                        //increments computerScore
-            return "You lose, rock beats scissors!";
-        } else {
-            return "Please enter rock, paper, or scissors!";
-        }
+    resultsDiv.appendChild(clonedRock);
+    resultsDiv.appendChild(clonedRockComp);
+  } else if (playerSelection === "paper" && computerSelection === "paper"){
 
-    } else if (computerSelection === "paper"){
-        if (playerSelection.toLowerCase() === "rock"){
-            computerScore++;
-            return "You lose, paper beats rock!";
-        } else if (playerSelection.toLowerCase() === "paper"){
-            return "Paper on paper, its a tie!";
-        } else if (playerSelection.toLowerCase() === "scissors"){
-            playerScore++;
-            return "You win, scissors cut paper!";
-        } else {
-            return "Please enter rock, paper, or scissors!";
-        }
+    resultsDiv.appendChild(clonedPaper);
+    resultsDiv.appendChild(clonedPaperComp);
 
-    } else if (computerSelection === "scissors"){
-        if (playerSelection.toLowerCase() === "rock"){
-            playerScore++;
-            return "You win, rock beats scissors!";
-        } else if (playerSelection.toLowerCase() === "paper"){
-            computerScore++;
-            return "You lose, scissors cut paper!";
-        } else if (playerSelection.toLowerCase() === "scissors"){
-            return "Saved by the tie!";
-        } else {
-            return "Please enter rock, paper, or scissors!";
-        }
+  } else if (playerSelection === "scissors" && computerSelection === "scissors"){
+    resultsDiv.appendChild(clonedScissors);
+    resultsDiv.appendChild(clonedScissorsComp);
+  } else if (playerSelection === "rock") {
+
+    resultsDiv.appendChild(clonedRock);
+    // resultsDiv.appendChild(rockButton);
+    if (computerSelection === "paper") {
+      resultsDiv.appendChild(clonedPaperComp);
+      computerScore++;
+      return;
+    } else if (computerSelection === "scissors") {
+      resultsDiv.appendChild(clonedScissorsComp);
+      playerScore++;
+      return;
+    }
+  } else if (playerSelection === "paper") {
+    resultsDiv.appendChild(clonedPaper);
+    if (computerSelection === "rock") {
+      resultsDiv.appendChild(clonedRockComp);
+      playerScore++;
+      return;
+    } else if (computerSelection === "scissors") {
+      resultsDiv.appendChild(clonedScissorsComp);
+      computerScore++;
+      return;
+    }
+  } else if (playerSelection === "scissors") {
+    resultsDiv.appendChild(clonedScissors);
+    if (computerSelection === "rock") {
+      resultsDiv.appendChild(clonedRockComp);
+      computerScore++;
+      return;
+    } else if (computerSelection === "paper") {
+      resultsDiv.appendChild(clonedPaperComp);
+      playerScore++;
+      return;
+    }
+  }
+
+
+
+} //playRound()
+
+let playerScoreTest = document.querySelector("#yourScore");
+let compScoreTest = document.querySelector("#compScore");
+
+let buttonsOG = document.querySelector("#tester");
+
+
+
+function game() {
+  choices.forEach((choice) => {
+    choice.addEventListener("click", function () {
+      let playerSelection = this.id;
+      let computerSelection = computerPlay();
+      playRound(playerSelection, computerSelection);
+
+
+      playerScoreTest.innerHTML = playerScore;
+      compScoreTest.innerHTML = computerScore;
+
+      gameOver();
+    });
+  });
+
+  
+
+}
+
+function gameOver() {
+
+  if (playerScore === 5) {
+
+    while (resultsDiv.firstChild){
+      resultsDiv.removeChild(resultsDiv.firstChild);
     }
 
-    // oneRound();
-    
-}
-// function that plays one round
+    whoWonDiv.innerHTML = "YOU WON! " + String.fromCodePoint(0x1F389) + "<br>"; 
 
-//playRound(playerSelection, computerSelection);
-//out here, playerSelection is not defined so an error occurs
+    const replay = document.createElement("button");
+    replay.textContent = "play again?";
+    whoWonDiv.appendChild(replay);
 
+    replay.addEventListener("click", () => {
+      location.reload(); //reloads the window
+    });
 
+    choices.forEach((choice) => {
+      choice.disabled = true; //disables the click event when true
+    });
+  } else if (computerScore === 5) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function game(){
-
-    for (i = 1; i < 6; i++){
-
-        const playerSelection = prompt("Rock Paper Scissors says Shoot!"); //gets input value
-        const computerSelection = computerPlay(); //stores computer choice
-
-        console.log("Round " + i);
-        console.log(playerSelection);
-        console.log(computerSelection);
-        console.log(playRound(playerSelection, computerSelection)); // without the parameters, this returns undefined
-
+    while (resultsDiv.firstChild){
+      resultsDiv.removeChild(resultsDiv.firstChild);
     }
 
-    if (playerScore > computerScore){
-        console.log("HOORAYYY! YOU WON THE GAME! " + playerScore + " to " + computerScore);
-    } else if (playerScore < computerScore){
-        console.log("Better luck next time! " + playerScore + " - " + computerScore);
-    } else {
-        console.log("Tied game! " + playerScore + " - " + computerScore);
-    } 
+    whoWonDiv.innerHTML = "YOU LOSE! " + String.fromCodePoint(0x1F44E) + "<br>";
+
+    const replay = document.createElement("button");
+    replay.textContent = "play again?";
+    whoWonDiv.appendChild(replay);
+
+    replay.addEventListener("click", () => {
+      location.reload();
+    });
+
+    choices.forEach((choice) => {
+      choice.disabled = true;
+    });
+  }
 }
-// plays 5 rounds and returns the winner of each round, then the final score!
 
 game();
-// plays Rock Paper Scissors!
-
-// playRound();

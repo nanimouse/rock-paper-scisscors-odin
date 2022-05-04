@@ -1,24 +1,92 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="style.css">
-        <script type="text/javascript" src="finalnew.js" defer></script>
-    </head>
-    <body>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Odibee+Sans&display=swap" rel="stylesheet">
+
+    <script src="startOver.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+
+    <header> 
+        <h1> ROCK, PAPER, SCISSORS </h1>
+        <h2> says "Shoot!"</h3>
+        
+        <p>First to 5 wins!</p>
+    </header>
+
+    <span id="yourScoreLabel">player</span>
+
+    <div id="scoreboard">
+    
+      <div id="inside">
+        <span id="yourScore"> 0 </span> : 
+        <span id="compScore"> 0</span>
+      </div>
+
+    </div>
+
+    <span id="compScoreLabel">opponent</span>
+    
+    
+
+    <div id="container">
+        <div id="playerButtons">
+       <div id="tester"> <button id="rock" style="border: none; background: none;"> 
+            <img src="/Users/victoriatarrats1/Documents/devProjects/repos/rock-paper-scisscors-odin/imgs/rock.png" alt="rock">
+        </button></div>
+    
+        <button id="paper" style="border: none; background: none;">   
+            <img src="/Users/victoriatarrats1/Documents/devProjects/repos/rock-paper-scisscors-odin/imgs/paper.png" alt="paper">
+    
+        </button>
+    
+        <button id="scissors" style="border: none; background: none;">   
+            <img src="/Users/victoriatarrats1/Documents/devProjects/repos/rock-paper-scisscors-odin/imgs/scissors.png" alt="scissors">
+    
+        </button>
+    </div>
+
+    <div id="results"> 
+      
+    </div>
+
+    <div id="computerOptions">
+         
+            <img src="/Users/victoriatarrats1/Documents/devProjects/repos/rock-paper-scisscors-odin/imgs/rock.png" alt="rock" id="compRock" height="96px" width="96px">
+    
+          
+            <img src="/Users/victoriatarrats1/Documents/devProjects/repos/rock-paper-scisscors-odin/imgs/paper.png" alt="paper" id="compPaper" height="96px" width="96px">
+    
+        
+    
+           
+            <img src="/Users/victoriatarrats1/Documents/devProjects/repos/rock-paper-scisscors-odin/imgs/scissors.png" alt="scissors" id="compScissors" height="96px" width="96px">
+    
+        
+    </div>
+    </div>
+
+    <div id="whoWon"> </div>
 
 
-        <button id="rock">Rock</button>
-        <button id="paper">Paper</button>
-        <button id="scissors">Scissors</button>
-
-
-
-
-
-
-     
-
-
-
-    </body>
+    <br>
+    <br>
+    <br>
+  </body>
 </html>
+
+
+<!-- notes: get scores centered - done
+get results wherever we want them - done
+highlight player choice & comp choice - changed mind, completed new idea
+think of option to play again - done
+look up ending the game so after 5 pts nothing happens - done 
+find how to add emojis -
+change "shoot!" color
+size cpu images when theyre thrown
+clean up winner annoucement; delete weapons from screen - done
+see if we can make an option for computer or 2-player game-->
